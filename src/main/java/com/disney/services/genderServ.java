@@ -2,6 +2,8 @@ package com.disney.services;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +24,7 @@ public class genderServ {
 	private photoServ photoServ;
 	
 	//Creacion de genero
+	@Transactional
 	public void createGender (String id, MultipartFile file, String genderName, movie associatedMovie) throws errorServ{
 		
 		validation(genderName, associatedMovie);
@@ -40,6 +43,7 @@ public class genderServ {
 	}
 	
 	//Edicion de genero
+	@Transactional
 	public void genderEdit(String id, MultipartFile file, String genderName, movie associatedMovie) throws errorServ{
 		
 		Optional<gender> gender1 = genderRep.findById(id);

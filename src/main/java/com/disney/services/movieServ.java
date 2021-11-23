@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +27,7 @@ public class movieServ {
 	private photoServ photoServ;
 	
 	//Creacion de pelicula
+	@Transactional
 	public void createMovie (String id, MultipartFile file,String title, Date creation, 
 			String calification, chharacter associaterdCharacter, gender associatedGender)throws errorServ{
 		
@@ -47,6 +50,7 @@ public class movieServ {
 	}
 	
 	//Edicion de pelicula
+	@Transactional
 	public void movieEdit(String id, MultipartFile file,String title, Date creation, 
 			String calification, chharacter associaterdCharacter, gender associatedGender) throws errorServ{
 		
@@ -78,6 +82,7 @@ public class movieServ {
 	}
 	
 	//Eliminacion de pelicula
+	@Transactional
 	public void deleteMovie(String id) throws errorServ{
 		
 		Optional<movie> movie1 = movieRep.findById(id);

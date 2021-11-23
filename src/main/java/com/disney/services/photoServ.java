@@ -2,6 +2,8 @@ package com.disney.services;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,19 +19,21 @@ public class photoServ {
 	@Autowired
 	private photoRep photoRep;
 	
-	public photo save(MultipartFile file) throws errorServ{
+	@Transactional// Hace que si el metodo se ejecuta sin excepciones, hace un commit a la base de datos y se aplican todos los cambios.
+	              //Si el metodo lanza excepcion y no es atrapada, se vuelve atras y no se hace el commit ni se aplica a la DB.
+	public photo save(MultipartFile file) throws errorServ{ //multipartFile es el archivo donde almaceno el archivo de la foto)
 		
-		if(file != null) {
+		if(file != null) { //si es distinto de null, trabajamos el archivo. 
 			
 			try {
-				photo photo = new photo();
+				photo photo = new photo();//creo foto en blanco
 				
 				photo.setMime(file.getContentType());
 				photo.setName(file.getName());
-				//Seteo contenido de la foto.
+				//Seteo contenido de la foto a un arreglo de bytes.
 				photo.setContent(file.getBytes());
 				
-				return photoRep.save(photo);
+				return photoRep.save(photo); //devolvemos la foto persistida
 				
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
@@ -42,6 +46,7 @@ public class photoServ {
 		
 	}
 	
+	@Transactional
 	public photo editPhoto (String id,MultipartFile file) throws errorServ{
 		
         if(file != null) {

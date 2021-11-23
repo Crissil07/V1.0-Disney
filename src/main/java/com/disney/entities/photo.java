@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class photo {
 	
 	private String name;
 	
-	//Indica el tipo de archivo de la foto
+	//Indica el tipo de archivo de la foto (formato de la foto:jpg, png, img, etc)
 	private String mime;	
 	
 	//Lob: tipo de dato byte, lo uso cuando es pesado

@@ -3,6 +3,8 @@ package com.disney.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +28,7 @@ public class characterServ {
 	private photoServ photoServ;
 	
 	//Creacion de Personaje
+	@Transactional
 	public void createChar (String id, MultipartFile file, String name, Integer age, Integer weight, movie associatedMovie) throws errorServ {
 		
 		validation(name, age, weight, associatedMovie);	
@@ -46,6 +49,7 @@ public class characterServ {
 	}
 	
 	//Edicion de personaje
+	@Transactional
 	public void characterEdit(String id,MultipartFile file, String name, Integer age, Integer weight, movie associatedMovie) throws errorServ{
 		
 		validation(name, age, weight, associatedMovie);	
@@ -81,6 +85,7 @@ public class characterServ {
 	}
 	
 	//Eliminacion de personajes
+	@Transactional
 	public void deleteCharacter(String id) throws errorServ{
 		
 	Optional<chharacter> character1 = characterRep.findById(id);
